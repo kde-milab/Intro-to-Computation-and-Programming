@@ -200,23 +200,23 @@ def get_games(df, countries):
 # # Read in file again, because above code modified temperatures
 # temperatures = pd.read_csv('US_temperatures.csv')
 
-# temperatures.set_index('Date', drop = True, inplace = True)
-# temperatures['Max T'] = temperatures.max(axis = 'columns')
-# temperatures['Min T'] = temperatures.min(axis = 'columns')
-# temperatures['Mean T'] = round(temperatures.mean(axis = 'columns'), 2)
-# print(temperatures.loc[20000704:20000704])
+temperatures.set_index('Date', drop = True, inplace = True)
+temperatures['Max T'] = temperatures.max(axis = 'columns')
+temperatures['Min T'] = temperatures.min(axis = 'columns')
+temperatures['Mean T'] = round(temperatures.mean(axis = 'columns'), 2)
+print(temperatures.loc[20000704:20000704])
 
-# plt.figure(figsize = (14, 3)) #set aspect ratio for figure
-# plt.plot(list(temperatures['Mean T']))
-# plt.title('Mean Temp Across 21 US Cities')
-# plt.xlabel('Days Since 1/1/1961')
-# plt.ylabel('Degrees C')
+plt.figure(figsize = (14, 3)) #set aspect ratio for figure
+plt.plot(list(temperatures['Mean T']))
+plt.title('Mean Temp Across 21 US Cities')
+plt.xlabel('Days Since 1/1/1961')
+plt.ylabel('Degrees C')
 
-# plt.figure(figsize = (14, 3)) #set aspect ratio for figure
-# plt.plot(list(temperatures['Mean T'])[0:3*365])
-# plt.title('Mean Temp Across 21 US Cities')
-# plt.xlabel('Days Since 1/1/1961')
-# plt.ylabel('Degrees C')
+plt.figure(figsize = (14, 3)) #set aspect ratio for figure
+plt.plot(list(temperatures['Mean T'])[0:3*365])
+plt.title('Mean Temp Across 21 US Cities')
+plt.xlabel('Days Since 1/1/1961')
+plt.ylabel('Degrees C')
 
 # # Figure 23-3 from page 534
 def get_dict(temperatures, labels):
@@ -258,30 +258,30 @@ yearly_temps = pd.DataFrame({'Year': years, 'Min T': mins,
 print(yearly_temps)
 
 # Figure 23-5 from page 536
-# plt.figure(0)
-# plt.plot(yearly_temps['Year'], yearly_temps['Mean T'])
-# plt.title('Mean Annual Temp in 21 U.S. Cities')
-# plt.figure(1)
-# plt.plot(yearly_temps['Year'], yearly_temps['Min T'])
-# plt.title('Min Annual Temp in 21 U.S. Cities')
-# for i in range(2):
-#     plt.figure(i)
-#     plt.xticks(range(0, len(yearly_temps), 4),
-#                 rotation = 'vertical', size = 'large')
-#     plt.ylabel('Degrees C')
+plt.figure(0)
+plt.plot(yearly_temps['Year'], yearly_temps['Mean T'])
+plt.title('Mean Annual Temp in 21 U.S. Cities')
+plt.figure(1)
+plt.plot(yearly_temps['Year'], yearly_temps['Min T'])
+plt.title('Min Annual Temp in 21 U.S. Cities')
+for i in range(2):
+    plt.figure(i)
+    plt.xticks(range(0, len(yearly_temps), 4),
+                rotation = 'vertical', size = 'large')
+    plt.ylabel('Degrees C')
  
-# # Figure 23-5 modified as shown on page 537
-# plt.figure(0)
-# plt.plot(yearly_temps['Year'], yearly_temps['Mean T'])
-# plt.title('Mean Annual Temp in 21 U.S. Cities')
-# plt.figure(1)
-# plt.plot(yearly_temps['Min T'].rolling(7).mean())
-# plt.title('Min Annual Temp in 21 U.S. Cities')
-# for i in range(2):
-#     plt.figure(i)
-#     plt.xticks(range(0, len(yearly_temps), 4),
-#                 rotation = 'vertical', size = 'large')
-#     plt.ylabel('Degrees C')
+# Figure 23-5 modified as shown on page 537
+plt.figure(0)
+plt.plot(yearly_temps['Year'], yearly_temps['Mean T'])
+plt.title('Mean Annual Temp in 21 U.S. Cities')
+plt.figure(1)
+plt.plot(yearly_temps['Min T'].rolling(7).mean())
+plt.title('Min Annual Temp in 21 U.S. Cities')
+for i in range(2):
+    plt.figure(i)
+    plt.xticks(range(0, len(yearly_temps), 4),
+                rotation = 'vertical', size = 'large')
+    plt.ylabel('Degrees C')
 
 # # Code from page 537
 # num_years = 7
@@ -307,51 +307,51 @@ def r_squared(measured, predicted):
 # print(r_squared(yearly_temps['Mean T'][indices],
 #                 np.polyval(model, yearly_temps['Year'][indices])))
 
-# # Code from page 539
-# temperatures = pd.read_csv('US_temperatures.csv')
-# temperatures.drop('Date', axis = 'columns', inplace = True)
-# means = round(temperatures.mean(), 2)
-# maxes = temperatures.max()
-# mins = temperatures.min()
-# city_temps = pd.DataFrame({'Min T':mins, 'Max T':maxes,
-# 'Mean T':means})
-# city_temps = city_temps.apply(lambda x: 1.8*x + 32)
-# city_temps['Max-Min'] = city_temps['Max T'] - city_temps['Min T']
-# print(city_temps.sort_values('Mean T', ascending = False).to_string())
+# Code from page 539
+temperatures = pd.read_csv('US_temperatures.csv')
+temperatures.drop('Date', axis = 'columns', inplace = True)
+means = round(temperatures.mean(), 2)
+maxes = temperatures.max()
+mins = temperatures.min()
+city_temps = pd.DataFrame({'Min T':mins, 'Max T':maxes,
+'Mean T':means})
+city_temps = city_temps.apply(lambda x: 1.8*x + 32)
+city_temps['Max-Min'] = city_temps['Max T'] - city_temps['Min T']
+print(city_temps.sort_values('Mean T', ascending = False).to_string())
 
-# # Code from page 540
-# plt.plot(city_temps.sort_values('Max-Min', ascending=False)['Min T'],
-#           'b^', label = 'Min T')
-# plt.plot(city_temps.sort_values('Max-Min', ascending=False)['Max T'],
-#           'kx', label = 'Max T')
-# plt.plot(city_temps.sort_values('Max-Min', ascending=False)['Mean T'],
-#           'ro', label = 'Mean T')
-# plt.xticks(rotation = 'vertical')
-# plt.legend()
-# plt.title('Variation in Extremal Daily\nTemperature 1961-2015')
-# plt.ylabel('Degrees F')
+# Code from page 540
+plt.plot(city_temps.sort_values('Max-Min', ascending=False)['Min T'],
+          'b^', label = 'Min T')
+plt.plot(city_temps.sort_values('Max-Min', ascending=False)['Max T'],
+          'kx', label = 'Max T')
+plt.plot(city_temps.sort_values('Max-Min', ascending=False)['Mean T'],
+          'ro', label = 'Mean T')
+plt.xticks(rotation = 'vertical')
+plt.legend()
+plt.title('Variation in Extremal Daily\nTemperature 1961-2015')
+plt.ylabel('Degrees F')
 
-# # Code from page 541
-# emissions = pd.read_csv('global-fossil-fuel-consumption.csv')
-# print(emissions)
+# Code from page 541
+emissions = pd.read_csv('global-fossil-fuel-consumption.csv')
+print(emissions)
 
-# # Code from page 542
-# emissions['Fuels'] = emissions.sum(axis = 'columns')
-# emissions.drop(['Coal', 'Crude Oil', 'Natural Gas'], axis = 'columns',
-# inplace = True)
-# num_years = 5
-# emissions['Roll F'] =\
-# emissions['Fuels'].rolling(num_years).mean()
-# emissions = emissions.round()
+# Code from page 542
+emissions['Fuels'] = emissions.sum(axis = 'columns')
+emissions.drop(['Coal', 'Crude Oil', 'Natural Gas'], axis = 'columns',
+inplace = True)
+num_years = 5
+emissions['Roll F'] =\
+emissions['Fuels'].rolling(num_years).mean()
+emissions = emissions.round()
 
-# plt.plot(emissions['Year'], emissions['Fuels'],
-#           label = 'Consumption')
-# plt.plot(emissions['Year'], emissions['Roll F'],
-# label = str(num_years) + ' Year Rolling Ave.')
-# plt.legend()
-# plt.title('Consumption of Fossil Fuels')
-# plt.xlabel('Year')
-# plt.ylabel('Consumption')
+plt.plot(emissions['Year'], emissions['Fuels'],
+          label = 'Consumption')
+plt.plot(emissions['Year'], emissions['Roll F'],
+label = str(num_years) + ' Year Rolling Ave.')
+plt.legend()
+plt.title('Consumption of Fossil Fuels')
+plt.xlabel('Year')
+plt.ylabel('Consumption')
 
 # # # Code from page 543
 # yearly_temps['Year'] = yearly_temps['Year'].astype(int)
