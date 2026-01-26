@@ -6,7 +6,7 @@ from matplotlib.ticker import MaxNLocator
 
 # plt.rcParams['figure.dpi'] = 120
 plt.rcParams['savefig.dpi'] = 300
-plt.rcParams['figure.figsize'] = (8.0, 6.0)
+
 # шугамын өргөнийг тохируулах
 plt.rcParams['lines.linewidth'] = 4
 # гарчгийн фонтын хэмжээг тохируулах

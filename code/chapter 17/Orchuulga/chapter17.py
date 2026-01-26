@@ -78,19 +78,24 @@ def regress_to_mean(num_flips, num_trials):
             next_trials.append(frac_heads[i+1])
     #Plot results
     plt.plot(range(len(extremes)), extremes, 'ko',
-               label = 'Extreme')
+               label = 'Хэтрэлтэй үр дүн')
     plt.plot(range(len(next_trials)), next_trials, 'k^',
-               label = 'Next Trial')
+               label = 'Дараах туршилт')
     plt.axhline(0.5)
     plt.ylim(0, 1)
     plt.xlim(-1, len(extremes) + 1)
-    plt.xlabel('Extreme Example and Next Trial')
-    plt.ylabel('Fraction Heads')
-    plt.title('Regression to the Mean')
+    plt.xlabel('Хэтрэлтэй тохиолдол ба дараах туршилт')
+    plt.ylabel('Сүлд буусан магадлал (хувь*0.1)')
+    plt.title('Дунджид буцах регресс')
     plt.legend(loc = 'best')
-    plt.show()
-random.seed(0)
-regress_to_mean(15, 50)
+    
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_4.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_4.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+    
+    
+    
+# random.seed(0)
+# regress_to_mean(15, 50)
 
 # # Figure 17-5 from page 352
 def flip_plot(min_exp, max_exp):
@@ -110,17 +115,23 @@ def flip_plot(min_exp, max_exp):
             diffs.append(abs(num_heads - num_tails))
         except ZeroDivisionError:
             continue
-    plt.title('Difference Between Heads and Tails')
-    plt.xlabel('Number of Flips')
-    plt.ylabel('Abs(#Heads - #Tails)')
+    plt.title('Сүлд, тоо буусан зөрүү')
+    plt.xlabel('Хаях тоо (x 10^6)')
+    plt.ylabel('Abs(#Сүлд - #Тоо)')
     plt.xticks(rotation = 'vertical')
     plt.plot(x_axis, diffs, 'k')
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_6zuun.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_6zuun.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+
     plt.figure()
-    plt.title('Heads/Tails Ratios')
-    plt.xlabel('Number of Flips')
-    plt.ylabel('#Heads/#Tails')
+    plt.title('Сүлд/Тоо харьцаа')
+    plt.xlabel('Хаях тоо (x 10^6)')
+    plt.ylabel('#Тоо/#Сүлд')
     plt.xticks(rotation = 'vertical')
     plt.plot(x_axis, ratios, 'k')
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_6baruun.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_6baruun.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+    # plt.show()
 
 # random.seed(0)
 # flip_plot(4, 20)
@@ -180,12 +191,19 @@ def flip_plot1(min_exp, max_exp, num_trials):
         diffs_means.append(sum(diffs)/num_trials)
         ratios_SDs.append(std_dev(ratios))
         diffs_SDs.append(std_dev(diffs))
-    title = f'Mean Heads/Tails Ratios ({num_trials} Trials)'
-    make_plot(x_axis, ratios_means, title, 'Number of Flips',
-             'Mean Heads/Tails', 'ko', log_x = True)
-    title = f'SD Heads/Tails Ratios ({num_trials} Trials)'
-    make_plot(x_axis, ratios_SDs, title, 'Number of Flips',
-            'Standard Deviation', 'ko', log_x = True, log_y = True)
+    title = f'Дундаж сүлд/тооны харьцаа ({num_trials} туршилт)'
+    make_plot(x_axis, ratios_means, title, 'Зоос хаях тоо',
+             'Сүлд/тооны дундаж', 'ko', log_x = True)
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_11zuun.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_11zuun.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+    
+    title = f'Сүлд/тооны харьцааны стандарт хаз. ({num_trials} туршилт)'
+    make_plot(x_axis, ratios_SDs, title, 'Зоос хаях тоо',
+            'Стандарт хазайлт', 'ko', log_x = True, log_y = True)
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_11baruun.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_11baruun.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+    
+    # plt.show()
 
 # random.seed(0)
 # flip_plot1(4, 20, 20)
@@ -216,14 +234,25 @@ def flip_plot1(min_exp, max_exp, num_trials):
     make_plot(x_axis, ratios_SDs, title, 'Number of Flips',
             'Standard Deviation', 'ko', log_x = True, log_y = True)
     ###Added later in chapter
-    title = f'Mean abs(#Heads - #Tails) ({num_trials} Trials)'
+    title = f'abs(#Heads - #Tails)-н дундаж\n ({num_trials} туршилт)'
     make_plot(x_axis, diffs_means, title,
-          'Number of Flips', 'Mean abs(#Heads - #Tails)', 'ko',
+          'Зоос хаях тоо', 'abs(#Heads - #Tails) дундаж', 'ko',
           log_x = True, log_y = True)
-    title = f'SD abs(#Heads - #Tails) ({num_trials} Trials)'
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_13zuun.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_13zuun.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+
+    title = f'abs(#Heads - #Tails)-н стандарт хазайлт\n ({num_trials} туршилт)'
     make_plot(x_axis, diffs_SDs, title,
-          'Number of Flips', 'Standard Deviation', 'ko',
+          'Зоос хаях тоо', 'Стандарт хазайлт', 'ko',
           log_x = True, log_y = True)
+    
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_13baruun.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_13baruun.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+
+    # plt.show()
+
+# random.seed(0)
+# flip_plot1(4, 20, 20)
 
 # # Figure 17-14 from page 361
 def CV(X):
@@ -256,27 +285,38 @@ def flip_plot2(min_exp, max_exp, num_trials):
         ratios_CVs.append(CV(ratios))
         diffs_CVs.append(CV(diffs))
     num_trials_str = ' (' + str(num_trials) + ' Trials)'
-    title = 'Mean Heads/Tails Ratios' + num_trials_str
-    make_plot(x_axis, ratios_means, title, 'Number of flips',
-             'Mean Heads/Tails', 'ko', log_x = True)
-    title = 'SD Heads/Tails Ratios' + num_trials_str
-    make_plot(x_axis, ratios_SDs, title, 'Number of flips',
-             'Standard Deviation', 'ko', log_x = True, log_y = True)
-    title = 'Mean abs(#Heads - #Tails)' + num_trials_str
-    make_plot(x_axis, diffs_means, title,'Number of Flips',
-             'Mean abs(#Heads - #Tails)', 'ko',
-             log_x = True, log_y = True)
-    title = 'SD abs(#Heads - #Tails)' + num_trials_str
-    make_plot(x_axis, diffs_SDs, title, 'Number of Flips',
-             'Standard Deviation', 'ko', log_x = True, log_y = True)
-    title = 'Coeff. of Var. abs(#Heads - #Tails)' + num_trials_str
-    make_plot(x_axis, diffs_CVs, title, 'Number of Flips',
-             'Coeff. of Var.', 'ko', log_x = True)
-    title = 'Coeff. of Var. Heads/Tails Ratio' + num_trials_str
-    make_plot(x_axis, ratios_CVs, title, 'Number of Flips',
-             'Coeff. of Var.', 'ko', log_x = True, log_y = True)
+    # title = 'Mean Heads/Tails Ratios' + num_trials_str
+    # make_plot(x_axis, ratios_means, title, 'Number of flips',
+    #          'Mean Heads/Tails', 'ko', log_x = True)
+    # title = 'SD Heads/Tails Ratios' + num_trials_str
+    # make_plot(x_axis, ratios_SDs, title, 'Number of flips',
+    #          'Standard Deviation', 'ko', log_x = True, log_y = True)
+    # title = 'Mean abs(#Heads - #Tails)' + num_trials_str
+    # make_plot(x_axis, diffs_means, title,'Number of Flips',
+    #          'Mean abs(#Heads - #Tails)', 'ko',
+    #          log_x = True, log_y = True)
+    # title = 'SD abs(#Heads - #Tails)' + num_trials_str
+    # make_plot(x_axis, diffs_SDs, title, 'Number of Flips',
+    #          'Standard Deviation', 'ko', log_x = True, log_y = True)
 
+    title = 'abs(#Heads - #Tails)-н вариацын коэффицент\n (20 туршилт)'
+    make_plot(x_axis, diffs_CVs, title, 'Зоос хаях тоо',
+             'Вариацын коэффицент', 'ko', log_x = True)
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_17.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_17.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+
+    # title = 'Heads/Tails харьцааны вариацын коэффицент\n (20 туршилт)' 
+    # make_plot(x_axis, ratios_CVs, title, 'Зоос хаях тоо',
+    #          'Вариацын коэффицент', 'ko', log_x = True, log_y = True)
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_17zuun.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_17zuun.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+    # plt.show()
+    
+# Plot figure 17.16
 # flip_plot2(4, 20, 20)
+
+# # Plot figure 17.17
+# flip_plot2(4, 20, 1000)
 
 # # Code from Figure 17-19 on page 366
 # random.seed(0)
@@ -285,9 +325,14 @@ def flip_plot2(min_exp, max_exp, num_trials):
 #     num1 = random.choice(range(0, 101))
 #     num2 = random.choice(range(0, 101))
 #     vals.append(num1 + num2)
-# plt.hist(vals, bins = 10, ec = 'k')
-# plt.xlabel('Sum')
-# plt.ylabel('Number of Occurrences')
+# plt.figure(figsize=(5.0, 4.0))
+# plt.hist(vals, bins = 10, facecolor='lightgray', ec = 'k')
+# plt.xlabel('Нийлбэр')
+# plt.ylabel('Тохиолын тоо')
+# plt.tight_layout()
+# plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_19baruun.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+# plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_19baruun.png', bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+# plt.show()
 
 # # Code from Figure 17-20 on page 368
 def flip(num_flips):
@@ -307,34 +352,71 @@ def flip_sim(num_flips_per_trial, num_trials):
     return (frac_heads, mean, sd)
 
 def label_plot(num_flips, num_trials, mean, sd):
-    plt.title(str(num_trials) + ' trials of '
-                + str(num_flips) + ' flips each')
-    plt.xlabel('Fraction of Heads')
-    plt.ylabel('Number of Trials')
-    plt.annotate('Mean = ' + str(round(mean, 4))
-                   + '\nSD = ' + str(round(sd, 4)), size='x-large',
-                   xycoords = 'axes fraction', xy = (0.67, 0.5))
+    plt.title('Зоосыг ' + str(num_flips) + ' удаа хаях туршилт\n'+'('+str(num_trials) + ' удаа давтав)')
+    plt.xlabel('Сүлд буусан 0.1*хувь')
+    plt.ylabel('Туршилтын тоо')
+    plt.annotate('Дундаж = ' + str(round(mean, 4))
+                   + '\nСХ = ' + str(round(sd, 4)), size='x-large',
+                   xycoords = 'axes fraction', xy = (0.60, 0.8))
 
 def make_plots(num_flips1, num_flips2, num_trials):
     val1, mean1, sd1 = flip_sim(num_flips1, num_trials)
-    plt.hist(val1, bins = 20)
+    plt.hist(val1, bins = 20, ec = 'k', facecolor='gray')
     x_min,x_max = plt.xlim()
     label_plot(num_flips1, num_trials, mean1, sd1)
+    plt.tight_layout()
+    plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_21zuun.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_21zuun.png', bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+
     plt.figure()
     val2, mean2, sd2 = flip_sim(num_flips2, num_trials)
-    plt.hist(val2, bins = 20, ec = 'k')
+    plt.hist(val2, bins = 20, ec = 'k', facecolor='gray')
     plt.xlim(x_min, x_max)
     label_plot(num_flips2, num_trials, mean2, sd2)
-
+    plt.tight_layout()
+    plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_21baruun.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_21baruun.png', bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+    # plt.show()
 # random.seed(0)
 # make_plots(100, 1000, 100000)
 
+# Code to produce plot in Figure 17-22
+# def produce_fig17_22():
+#     random.seed(0)
+#     vals = [random.random() for _ in range(1000)]
+
+#     plt.figure(figsize=(3.5, 2.5))
+#     plt.plot(vals, linewidth=1)
+
+#     plt.xlabel('Дугаар')
+#     plt.ylabel('random.random() утга')
+
+#     plt.tight_layout()
+#     plt.show()
+
+
+    # plt.figure()
+    # plt.title(title)
+    # plt.xlabel(x_label)
+    # plt.ylabel(y_label)
+    # plt.plot(x_vals, y_vals, style)
+    # if log_x:
+    #     plt.semilogx()
+    # if log_y:
+    #     plt.semilogy()
+
+# produce_fig17_22()
+
 # # Code to produce plot in Figure 17-25 on page 374
-# plt.plot([0,5], [0,5])
+# plt.plot([0,5], [0,5],'k')
 # plt.xlim(0,5)
 # plt.ylim(0,5)
 # plt.title('abs(x)')
-
+# # plt.show()
+# plt.tight_layout()
+# plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_25.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+# plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_25.png', bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+    
 #Figure 15.23
 # print(scipy.integrate.quad(abs, 0, 5)[0])
 # print(scipy.integrate.quad(abs, 0, 5)[1])
@@ -356,12 +438,12 @@ def check_empirical(mu_max, sigma_max, num_trials):
     for t in range(num_trials):
         mu = random.randint(-mu_max, mu_max + 1)
         sigma = random.randint(1, sigma_max)
-        print('For mu =', mu, 'and sigma =', sigma)
+        print('mu =', mu, ', sigma =', sigma, 'үед: ')
         for num_std in (1, 2, 3):
             area = scipy.integrate.quad(gaussian, mu-num_std*sigma,
                                         mu+num_std*sigma,
                                         (mu, sigma))[0]
-            print('  Fraction within', num_std, 'std =',
+            print('[',num_std*(-1),'*sigma,',num_std,'*sigma] интервалд агуулагдах магадлал: ',
                   round(area, 4))
 
 # random.seed(0)
@@ -385,12 +467,16 @@ def show_error_bars(min_exp, max_exp, num_trials):
         frac_heads, mean, sd = flip_sim(2**exp, num_trials)
         means.append(mean)
         sds.append(sd)
-    plt.errorbar(x_vals, means, yerr=1.96*np.array(sds))
+    plt.errorbar(x_vals, means, yerr=1.96*np.array(sds),color='black')
     plt.semilogx()
-    plt.title('Mean Fraction of Heads ('
-                + str(num_trials) + ' trials)')
-    plt.xlabel('Number of flips per trial')
-    plt.ylabel('Fraction of heads & 95% confidence')
+    plt.title('Дундаж сүлд буусан 0.1*хувь \n('
+                + str(num_trials) + ' удаа туршив)')
+    plt.xlabel('Нэг туршилтад зоос хаях тоо')
+    plt.ylabel('Сүлд буусан 0.1*хувь &\n 95% итгэлтэй')
+    plt.tight_layout()
+    plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_28.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_28.png', bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+    # plt.show()
 
 # show_error_bars(3, 10, 100)
 
@@ -403,10 +489,15 @@ def clear(n, p, steps):
     num_remaining = [n]
     for t in range(steps):
         num_remaining.append(n*((1-p)**t))
-    plt.plot(num_remaining)
-    plt.xlabel('Time')
-    plt.ylabel('Molecules Remaining')
-    plt.title('Clearance of Drug')
+    plt.plot(num_remaining, 'k')
+    plt.xlabel('Хугацаа')
+    plt.ylabel('Үлдсэн молекул')
+    plt.title('Эмийг биеэс гадагшлуулах нь')
+    # plt.semilogy()
+    plt.tight_layout()
+    plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_30.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_30.png', bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+    plt.show()
 
 # clear(1000, 0.01, 1000)
 
@@ -430,11 +521,15 @@ def successful_starts(success_prob, num_trials):
 # prob_of_success = 0.5
 # num_trials = 5000
 # distribution = successful_starts(prob_of_success, num_trials)
-# plt.hist(distribution, bins = 14)
-# plt.xlabel('Tries Before Success')
-# plt.ylabel('Number of Occurrences Out of ' + str(num_trials))
-# plt.title('Probability of Starting Each Try = '
+# plt.hist(distribution, bins = 14, facecolor='grey', edgecolor='k')
+# plt.xlabel('Амжилт олох хүртэлх оролдлогын тоо')
+# plt.ylabel('Тохиолын тоо \n' + str(num_trials) + ' удаа давтав')
+# plt.title('Машин асаах туршилт,\n нэг оролдлогод асах магадлал = '
 #             + str(prob_of_success))
+# plt.tight_layout()
+# plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_33.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+# plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_33.png', bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+# plt.show()
 
 # # Code on page 387
 def collision_prob(n, k):
@@ -467,10 +562,10 @@ def find_prob(num_indices, num_insertions, num_trials):
     return collisions/num_trials
 
 # # Code on page 388
-# print('Actual probability of a collision =', collision_prob(1000, 50))
-# print('Est. probability of a collision =', find_prob(1000, 50, 10000))
-# print('Actual probability of a collision =', collision_prob(1000, 200))
-# print('Est. probability of a collision =', find_prob(1000, 200, 10000))
+# print('Мөргөлдөөн гарах жинхэнэ магадлал =', collision_prob(1000, 50))
+# print('Мөргөлдөөн гарах ойролцоо магадлал =', find_prob(1000, 50, 10000))
+# print('Мөргөлдөөн гарах жинхэнэ магадлал =', collision_prob(1000, 200))
+# print('Мөргөлдөөн гарах ойролцоо магадлал =', find_prob(1000, 200, 10000))
 
 # # Figure 17-35 on page 390
 def play_series(num_games, team_prob):
@@ -496,8 +591,12 @@ def sim_series(num_series):
         prob += 0.01
     plt.axhline(0.95) #Draw line at 95%
     plt.plot(probs, fracsWon, 'k', linewidth = 5)
-    plt.xlabel('Probability of Winning a Game')
-    plt.ylabel('Probability of Winning a Series') 
-    plt.title(str(num_series) + ' Seven-Game Series')
+    plt.xlabel('Нэг тоглолтод хожих магадлал')
+    plt.ylabel('Цувралын ялагч болох магадлал') 
+    plt.title('Долоон тоглолт бүхий цуврал \n (тэмцээнийг '+str(num_series) + ' удаа зохиов)')
+    plt.tight_layout()
+    plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_36.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 17\Orchuulga\figure17_36.png', bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+    plt.show()
 
-# sim_series(400)
+sim_series(400)

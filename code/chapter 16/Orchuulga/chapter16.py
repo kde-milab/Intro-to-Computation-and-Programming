@@ -1,3 +1,4 @@
+
 import random
 import matplotlib.pyplot as plt
 import numpy as np
@@ -110,14 +111,24 @@ def sim_walks(num_steps, num_trials, d_class):
         distances.append(round(walk(f, Homer, num_trials), 1))
     return distances
 
+# def drunk_test(walk_lengths, num_trials, d_class):
+#     """Assumes walk_lengths a sequence of ints >= 0
+#          num_trials an int > 0, d_class a subclass of Drunk
+#        For each number of steps in walk_lengths, runs sim_walks with
+#          num_trials walks and prints results"""
+#     for num_steps in walk_lengths:
+#         distances = sim_walks(num_steps, num_trials, d_class)
+#         print(d_class.__name__, 'walk of', num_steps, 'steps: Mean =',
+#               f'{sum(distances)/len(distances):.3f}, Max =',
+#               f'{max(distances)}, Min = {min(distances)}')
+
 def drunk_test(walk_lengths, num_trials, d_class):
-    """Assumes walk_lengths a sequence of ints >= 0
-         num_trials an int > 0, d_class a subclass of Drunk
-       For each number of steps in walk_lengths, runs sim_walks with
-         num_trials walks and prints results"""
+    """walk_lengths нь бүхэл тоон дараалал,
+        num_trials нь эерэг бүхэл тоо, d_class нь Drunk-н дэд класс,
+        walk_lengths дахь алхамын тоо тус бүрийн хувьд sim_walks функцийг дуудаж, үр дүнг хэвлэнэ."""
     for num_steps in walk_lengths:
         distances = sim_walks(num_steps, num_trials, d_class)
-        print(d_class.__name__, 'walk of', num_steps, 'steps: Mean =',
+        print(num_steps, 'алхамтай', d_class.__name__, 'алхалт: Mean =',
               f'{sum(distances)/len(distances):.3f}, Max =',
               f'{max(distances)}, Min = {min(distances)}')
 
@@ -274,9 +285,9 @@ def trace_walk(drunk_kinds, num_steps):
     plt.xlabel('Баруун/зүүн зүг, алхмын тоо')
     plt.ylabel('Урд/хойд зүг, алхмын тоо')
     plt.legend(loc = 'best')
-    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 16\figure16_15.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
-    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 16\figure16_15.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
-    # plt.show()
+    plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 16\figure16_15.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 16\figure16_15.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+    plt.show()
 
 # random.seed(2)
 # trace_walk((Usual_drunk, Cold_drunk, EW_drunk), 200)
@@ -302,8 +313,8 @@ class Odd_field(Field):
             self._drunks[drunk] = self._wormholes[(x, y)]
             
 # Code from page 339
-# random.seed(2)
-# trace_walk((Usual_drunk, Cold_drunk, EW_drunk), 500)
+random.seed(2)
+trace_walk((Usual_drunk, Cold_drunk, EW_drunk), 500)
 
 # # Answer to finger exercise used to produce Figure 16-5 on page 330
 # plt.figure()
