@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 
 import random
@@ -87,9 +88,9 @@ def regress_to_mean(num_flips, num_trials):
     plt.ylabel('Fraction Heads')
     plt.title('Regression to the Mean')
     plt.legend(loc = 'best')
-
-# random.seed(0)
-# regress_to_mean(15, 50)
+    plt.show()
+random.seed(0)
+regress_to_mean(15, 50)
 
 # # Figure 17-5 from page 352
 def flip_plot(min_exp, max_exp):

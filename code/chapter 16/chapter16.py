@@ -1,4 +1,3 @@
-
 import random
 import matplotlib.pyplot as plt
 import numpy as np
@@ -22,7 +21,7 @@ plt.rcParams['lines.markersize'] = 10
 #set number of times marker is shown when displaying legend
 plt.rcParams['legend.numpoints'] = 1
 #Set size of type in legend
-plt.rcParams['legend.fontsize'] = 14
+plt.rcParams['legend.fontsize'] = 16
 
 # # Figure 16-2 from page 326
 class Location(object):
@@ -190,23 +189,27 @@ def sim_drunk(num_trials, d_class, walk_lengths):
     return meanDistances
 
 def sim_all_plot(drunk_kinds, walk_lengths, num_trials):
-    style_choice = style_iterator(('m-', 'r:', 'k-.'))
+    style_choice = style_iterator(('k-', 'k:', 'k-.'))
     for d_class in drunk_kinds:
         cur_style = style_choice.next_style()
-        print('Starting simulation of', d_class.__name__)
+        print('Симуляцыг эхлүүлэв: ', d_class.__name__)
         means = sim_drunk(num_trials, d_class, walk_lengths)
         plt.plot(walk_lengths, means, cur_style,
                    label = d_class.__name__)
-    plt.title(f'Mean Distance from Origin ({num_trials} trials')
-    plt.xlabel('Number of Steps')
-    plt.ylabel('Distance from Origin')
+    plt.title(f'Эхлэл цэг хүртэлх дундаж зай ({num_trials} удаа давтав)')
+    plt.xlabel('Алхамын тоо')
+    plt.ylabel('Эхлэл хүртэлх зай')
     plt.legend(loc = 'best')
     plt.semilogx()
     plt.semilogy()
-
+    
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 16\figure16_9.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 16\figure16_9.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+    # plt.show()
 # # Code from page 334    
 # sim_all_plot((Usual_drunk, Cold_drunk, EW_drunk),
-#               (10, 100, 1000, 10000, 100000), 100)
+#               (10, 100, 1000, 10000, 100000), 100) 
+
 
 # # Figure 16-10 from page 335     
 def get_final_locs(num_steps, num_trials, d_class):
@@ -221,7 +224,7 @@ def get_final_locs(num_steps, num_trials, d_class):
     return locs
 
 def plot_locs(drunk_kinds, num_steps, num_trials):
-    style_choice = style_iterator(('k+', 'r^', 'mo'))
+    style_choice = style_iterator(('k+', 'k^', 'ko'))
     for d_class in drunk_kinds:
         locs = get_final_locs(num_steps, num_trials, d_class)
         x_vals, y_vals = [], []
@@ -232,20 +235,24 @@ def plot_locs(drunk_kinds, num_steps, num_trials):
         meanY = sum(y_vals)/len(y_vals)
         cur_style = style_choice.next_style()
         plt.plot(x_vals, y_vals, cur_style,
-                 label = (f'{d_class.__name__} mean loc. = <' +
+                 label = (f'{d_class.__name__} дундаж байршил = <' +
                          f'{meanX}, {meanY}>'))
-    plt.title(f'Location at End of Walks ({num_steps} steps)')
-    plt.xlabel('Steps East/West of Origin')
-    plt.ylabel('Steps North/South of Origin')
+    # plt.figure(figsize=(10, 8))
+    plt.title(f'Алхалтын төгсгөлийн байршил ({num_steps} алхам)')
+    plt.xlabel('Баруун/зүүн зүг, алхмын тоо')
+    plt.ylabel('Урд/хойд зүг, алхмын тоо')
     plt.legend(loc = 'best')
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 16\figure16_11.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 16\figure16_11.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
 
-# # Code from page 335
+    # plt.show()
+# Code from page 335
 # random.seed(0)
 # plot_locs((Usual_drunk, Cold_drunk, EW_drunk), 100, 200)
 
 # # Figure 16-12 from page 337
 def trace_walk(drunk_kinds, num_steps):
-    style_choice = style_iterator(('k+', 'r^', 'mo'))
+    style_choice = style_iterator(('k+', 'k^', 'ko'))
     f = Field()
     # f = Odd_field(1000, 100, 200) #Added later in chapter
     for d_class in drunk_kinds:
@@ -262,11 +269,14 @@ def trace_walk(drunk_kinds, num_steps):
         cur_style = style_choice.next_style()
         plt.plot(x_vals, y_vals, cur_style,
                    label = d_class.__name__)
-    plt.title('Spots Visited on Walk ('
-                + str(num_steps) + ' steps)')
-    plt.xlabel('Steps East/West of Origin')
-    plt.ylabel('Steps North/South of Origin')
+    plt.title('Алхах үед очсон байршил ('
+                + str(num_steps) + ' алхам)')
+    plt.xlabel('Баруун/зүүн зүг, алхмын тоо')
+    plt.ylabel('Урд/хойд зүг, алхмын тоо')
     plt.legend(loc = 'best')
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 16\figure16_15.pdf', bbox_inches="tight", pad_inches=0.1, format="pdf")
+    # plt.savefig(r'C:\python\guttag\figures\Intro-to-Computation-and-Programming\code\chapter 16\figure16_15.png',bbox_inches="tight", pad_inches=0.1, format="png", dpi=300)  
+    # plt.show()
 
 # random.seed(2)
 # trace_walk((Usual_drunk, Cold_drunk, EW_drunk), 200)
@@ -291,8 +301,8 @@ class Odd_field(Field):
         if (x, y) in self._wormholes:
             self._drunks[drunk] = self._wormholes[(x, y)]
             
-# # Code from page 339
-# random.seed(0)
+# Code from page 339
+# random.seed(2)
 # trace_walk((Usual_drunk, Cold_drunk, EW_drunk), 500)
 
 # # Answer to finger exercise used to produce Figure 16-5 on page 330
